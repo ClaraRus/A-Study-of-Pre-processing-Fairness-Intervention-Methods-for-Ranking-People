@@ -1,0 +1,41 @@
+{
+   "DATA": {
+        "name": "BIOS",
+        "path": "./data/Bios_Bias/",
+        "version": "1",
+        "MED": ["X0", "X1", "X2"],
+        "DV": "Y",
+        "settings": {"ratio_split": 0.3, "k_fold": 5}
+    },
+
+     "METHOD":{
+        "name": "FAIR",
+        "k" :10,
+        "p" :0.5,
+        "alpha": 0.1
+    },
+
+
+  "LTR":
+    {
+        "ranker": "RankNet",
+        "rel_max": 500,
+
+        "train_data":["bias"],
+        "test_data": ["bias"]
+    },
+
+     "EVAL":
+    {
+        "measures": ["diversity","individual_fairness", "NDCG"],
+        "k_list": [10],
+        "rankings": ["Y", "Y__Y"]
+    },
+
+
+    "EXP":
+    {
+        "num": 1,
+        "comment": ""
+    }
+}

@@ -1,0 +1,47 @@
+{
+     "DATA": {
+        "name": "XING",
+        "path":  "./data/XING/",
+        "version": "1",
+        "MED": ["X0", "X1", "X2"],
+        "DV": "Y",
+        "settings": {"ratio_split": 0.4, "k_fold": 5},
+    },
+
+    "METHOD": {
+      "name": "LFR",
+      "k":10,
+      "Ax":0.1,
+      "Ay":1,
+      "Az":5,
+      "QID": true,
+      "print_interval": 100
+    },
+
+    "LTR":
+    {
+        "ranker": "RankNet",
+        "ranker_id": 1,
+        "metric": "NDCG",
+        "lr": 0.000001,
+        "epochs": 20,
+        "top_k": 10,
+        "rel_max": 500,
+
+        "train_data":["fair", "fair"],
+        "test_data": ["bias", "fair"]
+    },
+
+    "EVAL":
+    {
+        "measures": ["diversity","individual_fairness", "NDCG"],
+        "k_list": [10],
+        "rankings": ["Y_fair", "Y_fair__Y_fair"]
+    },
+
+    "EXP":
+    {
+        "num": 1,
+        "comment": ""
+    }
+}

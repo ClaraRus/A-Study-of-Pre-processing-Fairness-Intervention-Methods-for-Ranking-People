@@ -1,0 +1,42 @@
+{
+   "DATA": {
+        "name": "BIOS",
+        "path": "./data/Bios_Bias/",
+        "version": "1",
+        "MED": ["X0", "X1", "X2"],
+        "DV": "Y",
+        "settings": {"ratio_split": 0.3, "k_fold": 5}
+    },
+
+    "METHOD":{
+        "name": "CIFRank",
+        "control": "F"
+    },
+
+    "LTR":
+    {
+        "ranker": "RankNet",
+        "ranker_id": 1,
+        "metric": "NDCG",
+        "lr": 0.000001,
+        "epochs": 20,
+        "top_k": 10,
+        "rel_max": 500,
+
+        "train_data":["fair", "fair"],
+        "test_data": ["bias", "fair"]
+    },
+
+    "EVAL":
+    {
+        "measures": ["diversity","individual_fairness", "NDCG"],
+        "k_list": [10],
+        "rankings": ["Y_fair", "Y_fair__Y_fair", "Y_fair__Y"]
+    },
+
+    "EXP":
+    {
+        "num": 1,
+        "comment": ""
+    }
+}

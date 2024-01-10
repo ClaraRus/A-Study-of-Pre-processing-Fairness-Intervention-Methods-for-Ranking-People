@@ -1,0 +1,2 @@
+## iFair: Learning Individually Fair Data Representations for Algorithmic Decision Making
+* Implements the code for the pre-processing approach to learn individually fair representation described in the paper: "[iFair: Learning Individually Fair Data Representations for Algorithmic Decision Making](https://ieeexplore.ieee.org/abstract/document/8731591)". Proceedings of the 35th International Conference of Data Engineering (ICDE).

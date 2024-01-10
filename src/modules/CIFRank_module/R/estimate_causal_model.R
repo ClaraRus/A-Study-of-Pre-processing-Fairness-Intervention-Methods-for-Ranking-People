@@ -72,11 +72,14 @@ estimate_causal_model <- function (data_i, IV, DV, MED, control, out_path){
     med_cols = get_mediators(out_path, data_i)
 
     check_med <- data.org(x=data_i[med_cols],y=data_i[, DV],pred=data_i[, IV], mediator=med_cols, predref=control)
+    mediators = names(check_med$bin.results$contm)
 
+
+    print(check_med$bin.results$contm)
     if(check_med == 'no mediators found' || is.null(check_med$bin.results$contm)) {
         print("No mediators found!")
-        Mediators = c('NULL')
-        df <- data.frame(Mediators)
+        mediators = c('NULL')
+        df <- data.frame(mediators)
         file_name = "identified_mediators.csv"
         write.csv(df, file=paste(out_path, file_name, sep='/'))
 
@@ -88,25 +91,16 @@ estimate_causal_model <- function (data_i, IV, DV, MED, control, out_path){
 
     }
     else{
-        count_values =  table(data_i[, IV])
-        min_count_values = min(count_values)
-
-
-        file_name = "count_values.csv"
-        write.csv(count_values, file=paste(out_path, file_name, sep='/'))
         med_i<-med(data=check_med)
-
         capture.output(print(med_i), file=paste(out_path, "med_output.txt", sep='/'))
-        mediators <-data.org(x=data_i[med_cols],y=data_i[, DV],pred=data_i[, IV], mediator=med_cols, predref=control)
-        sum_mediators = summary(mediators)
-        Mediators = sum_mediators$mediator
-        df <- data.frame(Mediators)
+
+        df <- data.frame(mediators)
         file_name = "identified_mediators.csv"
         write.csv(df, file=paste(out_path, file_name, sep='/'))
 
-        for(i in 1:length(sum_mediators$mediator))
+        for(i in 1:length(mediators))
         {
-            model.str = paste0(sum_mediators$mediator[[i]], "~", IV, '-1')
+            model.str = paste0(mediators[[i]], "~", IV, '-1')
             form2 = as.formula(model.str)
             model.iv_med <- lm(form2, data=data_i)
 

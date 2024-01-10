@@ -23,15 +23,14 @@ def gen_counterfactual_data_qid(cur_df, path_causal, output_path, file_name, arg
 def get_counterfactual_data_real(cur_df, path_causal, output_path, args_causal, IV, DV, MED):
     group_list = [x for x in cur_df[IV].unique() if x != args_causal['control']]
 
-    orig_cols = list(cur_df.columns)
-
     mediators = pd.read_csv(os.path.join(path_causal, "identified_mediators.csv"))
-    no_mediators = len(mediators) == 0 or str(mediators['Mediators'].values[0]) == 'nan' or str(
-        mediators['Mediators'].values[0]) == 'x....cutx.'
+    print(path_causal)
+    print(mediators)
+    no_mediators = len(mediators) == 0 or str(mediators['mediators'].values[0]) == 'nan'
 
     new_cols = []
     for med in MED:
-        if med in mediators['Mediators'].values:
+        if med in mediators['mediators'].values:
             x_res = pd.read_csv(os.path.join(path_causal, med + "~" + IV + "-1.csv"))
             counter_g_base = x_res[x_res["Unnamed: 0"] == IV + args_causal['control']]["Estimate"].values[0]
 

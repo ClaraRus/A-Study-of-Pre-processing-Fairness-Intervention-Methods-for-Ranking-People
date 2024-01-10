@@ -113,7 +113,6 @@ class CIFRank(FairnessMethod):
             groups = temp[self.dataset.IV].unique()
             pred_gr = [g for g in groups if g not in pred_groups and g != self.configs['METHOD']['control']][0]
             index = 0
-            print(results_dict)
             for key in results_dict.keys():
                 index = index + 1
                 df_med = results_dict[key]

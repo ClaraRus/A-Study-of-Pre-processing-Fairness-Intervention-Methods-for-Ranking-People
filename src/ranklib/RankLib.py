@@ -47,14 +47,12 @@ class RankLib():
             models[train_set] = os.path.join(
                 os.path.join(self.ranklib_path, exp, 'ranklib-experiments', self.configs['LTR']['ranker']), exp_dir)
 
-        print(experiments)
         for exp in experiments:
             train_set = exp.split("__")[0]
             test_set = exp.split("__")[1]
             model = models[train_set]
             ranklib_exp_path = os.path.join(self.ranklib_path, exp, 'ranklib-experiments',
                                             self.configs['LTR']['ranker'])
-            print(ranklib_exp_path)
             if not os.path.exists(ranklib_exp_path):
                 # os.makedirs(ranklib_exp_path)
                 exp_dir = model.split('/')[-1]
@@ -88,14 +86,12 @@ class RankLib():
             data_test = data_test.drop(['Unnamed: 0'], axis=1)
 
         col_map = get_col_map(self.dataset.MED, self.dataset.DV)
-        print(col_map)
         experiments = [(self.configs['LTR']['train_data'][i], self.configs['LTR']['test_data'][i]) for i in
                        range(len(self.configs['LTR']['train_data']))]
-        print(experiments)
+
         for experiment in experiments:
             if experiment[0] in col_map and experiment[1] in col_map:
                 out_dir = os.path.join(self.ranklib_path, experiment[0] + '__' + experiment[1])
-                print(out_dir)
                 if not os.path.exists(out_dir):
                     os.makedirs(out_dir)
 

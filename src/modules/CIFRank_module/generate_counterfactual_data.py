@@ -24,8 +24,6 @@ def get_counterfactual_data_real(cur_df, path_causal, output_path, args_causal, 
     group_list = [x for x in cur_df[IV].unique() if x != args_causal['control']]
 
     mediators = pd.read_csv(os.path.join(path_causal, "identified_mediators.csv"))
-    print(path_causal)
-    print(mediators)
     no_mediators = len(mediators) == 0 or str(mediators['mediators'].values[0]) == 'nan'
 
     new_cols = []

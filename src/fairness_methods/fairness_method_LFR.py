@@ -40,10 +40,10 @@ class LearningFairRepresentations(FairnessMethod):
                         Ay=self.configs['METHOD']['Ay'],
                         Az=self.configs['METHOD']['Az'],
                         print_interval=self.configs['METHOD']['print_interval'],
-                        logs_path=os.path.join(self.model_logs_path, 'logs.txt'), verbose=1, seed=None)
+                        logs_path=os.path.join(self.model_logs_path, 'logs.txt'), verbose=0, seed=None)
 
             if 'QID' not in self.configs['METHOD']:
-                self.fit_model(self, model, data_train_fair, features_cols)
+                self.fit_model(model, data_train_fair, features_cols)
                 data_train_fair = model.transform(data_train, features_cols)
                 data_test_fair = model.transform(data_test, features_cols)
 
@@ -78,13 +78,11 @@ class LearningFairRepresentations(FairnessMethod):
         return data_train_fair, data_test_fair
 
     def fit_model(self, model, data_train, features_cols, qid=None):
-        if qid:
+        if qid is not None:
             out_path = os.path.join(self.model_logs_path, str(qid))
         else:
-            out_path = os.path.join(self.model_logs_path)
+            out_path = os.path.join(self.model_logs_path, 'all')
 
-        print(out_path)
-        print(os.path.exists(out_path))
         if not os.path.exists(out_path):
             os.makedirs(out_path)
 

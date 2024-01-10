@@ -22,9 +22,7 @@ class Pipeline:
         self.eval_path = None
         self.pred_path = None
 
-        print(config_path)
         self.configs = readFromJson(config_path)
-
         self.dataset = dataset_mapping[self.configs['DATA']['name']](self.configs['DATA']['path'],
                                                                      self.configs['DATA']['name'],
                                                                      self.configs['DATA']['version'],

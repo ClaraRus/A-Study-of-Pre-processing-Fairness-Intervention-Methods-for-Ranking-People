@@ -74,8 +74,6 @@ estimate_causal_model <- function (data_i, IV, DV, MED, control, out_path){
     check_med <- data.org(x=data_i[med_cols],y=data_i[, DV],pred=data_i[, IV], mediator=med_cols, predref=control)
     mediators = names(check_med$bin.results$contm)
 
-
-    print(check_med$bin.results$contm)
     if(check_med == 'no mediators found' || is.null(check_med$bin.results$contm)) {
         print("No mediators found!")
         mediators = c('NULL')
